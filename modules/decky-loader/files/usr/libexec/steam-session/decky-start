@@ -1,0 +1,48 @@
+#!/bin/sh
+# Start Decky Loader from ~/homebrew (on the games share), seeding it once
+# with the image's copy.
+# Decky updates itself in place there, so an existing copy is left alone.
+set -eu
+h=/var/home/steam/homebrew
+# ~/homebrew links into the share; create the target on a fresh share.
+mkdir -p /var/mnt/games/.decky /var/mnt/games/.unifideck-config \
+    /var/mnt/games/.legendary
+mkdir -p "$h/plugins" "$h/services" "$h/.seeded"
+if [ ! -x "$h/services/PluginLoader" ]; then
+    install -m 0755 /usr/lib/decky-loader/PluginLoader "$h/services/PluginLoader"
+    cp /usr/lib/decky-loader/version "$h/services/.loader.version"
+fi
+# Seed the plugins the image ships (see modules/moonshine-decky). Decky
+# installs and removes plugins in this directory itself, so a copy the user
+# installed is left alone, one the user removed stays removed, and only a copy
+# this seeded is replaced when the image ships a different version.
+for src in /usr/share/decky-plugins/*; do
+    [ -d "$src" ] || continue
+    name=${src##*/}
+    version=$(cat "$src/.seed-version" 2> /dev/null || true)
+    [ -n "$version" ] || continue
+    dst="$h/plugins/$name"
+    marker="$h/.seeded/$name"
+    if [ -e "$dst" ]; then
+        [ -f "$marker" ] || continue
+        [ "$(cat "$marker")" = "$version" ] && continue
+        rm -rf "$dst"
+    elif [ -e "$marker" ]; then
+        continue
+    fi
+    cp -a "$src" "$dst"
+    printf '%s\n' "$version" > "$marker"
+    chown -R 1000:1000 "$dst"
+done
+chown 1000:1000 "$h" "$h/plugins" "$h/services" "$h/.seeded" \
+    /var/mnt/games/.unifideck-config /var/mnt/games/.legendary
+# Decky reaches Steam's UI over CEF remote debugging (127.0.0.1:8080), which
+# Steam enables only when this file is in its root as it starts. Decky's
+# installer makes it; Decky itself does not. Made as steam, since the steam
+# user cannot replace a root-owned file on the share.
+s=/var/home/steam/.local/share/Steam
+if [ ! -e "$s/.cef-enable-remote-debugging" ]; then
+    runuser -u steam -- mkdir -p "$s"
+    runuser -u steam -- touch "$s/.cef-enable-remote-debugging"
+fi
+exec "$h/services/PluginLoader"

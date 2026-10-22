@@ -1,0 +1,30 @@
+schema-version 1
+
+description "Decky Loader, the Steam game-mode plugin loader: the pinned PluginLoader binary and its root system service. Its home, ~/homebrew, is on the games share, so plugins, their settings and Decky's own updates survive rebuilds."
+
+supports "fedora"
+
+network "scripts"
+
+requires "build-environment"
+requires "user"
+requires "steam"
+
+provides "decky-loader" file="/usr/lib/decky-loader/PluginLoader"
+
+// Decky's installer takes whatever release is latest; this pins one. Decky
+// updates itself afterwards from its own UI, in ~/homebrew/services.
+asset "decky" {
+    pin {
+        renovate datasource="github-releases" depName="SteamDeckHomebrew/decky-loader"
+        version "3.2.10"
+        url "https://github.com/SteamDeckHomebrew/decky-loader/releases/download/v{version}/PluginLoader"
+        sha256 "c2cf316a53e1c1d318c6dda8821c827e5db275922987f9097956d7a1576e8258"
+    }
+}
+
+// flatpak: plugins install apps with it (Unifideck installs Microsoft Edge
+// for store sign-in as a user Flatpak).
+packages "flatpak"
+
+mode "/usr/libexec/steam-session/decky-start" "0755"

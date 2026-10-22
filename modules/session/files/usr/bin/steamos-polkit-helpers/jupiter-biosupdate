@@ -1,0 +1,4 @@
+#!/bin/bash
+# SteamOS runs these through pkexec. The stubs need no privilege, and the steam user
+# has no polkit agent in game mode, so call them directly.
+exec /usr/bin/jupiter-biosupdate "$@"

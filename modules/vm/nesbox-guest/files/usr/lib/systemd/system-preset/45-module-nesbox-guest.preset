@@ -1,0 +1,2 @@
+# The rootfs is booted straight from a vmlinux: no bootloader to update.
+disable bootloader-update.service

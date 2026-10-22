@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+echo add | sudo tee /sys/devices/virtual/input/input*/event*/uevent > /dev/null

@@ -1,0 +1,4 @@
+#!/bin/sh
+# NVIDIA's libraries run nvidia-modprobe to load the nvidia kernel module and
+# make its nodes. In a virtio-nvgpu guest, virtio_gpu_nv has made the nodes.
+exit 0

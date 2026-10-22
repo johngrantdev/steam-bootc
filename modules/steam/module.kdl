@@ -1,0 +1,15 @@
+schema-version 1
+
+description "Steam and GameMode from RPMFusion. The Steam root itself is on the games share (the session module links it there and starts Steam as Moonshine's Steam app)."
+
+supports "fedora"
+
+requires "build-environment"
+
+requires "user"
+requires "nvidia-driver"
+
+provides "steam" file="/usr/bin/steam"
+
+packages "steam" "gamemode" "steam-devices" "vulkan-loader" \
+    "vulkan-tools" "xdg-user-dirs" "dbus" "dbus-broker" "zenity" "xterm"

@@ -1,0 +1,42 @@
+# Host settings for the steam-microvm-nvidia VM. Copy to
+# host/steam-bootc.conf and edit; every line is optional and shows its
+# default. Point STEAM_BOOTC_CONF at another file to keep it elsewhere.
+
+# The VM's name: nesbox@NAME, /etc/nesbox/NAME.json and the backend's
+# socket all take it.
+#NAME=steam-microvm-nvidia
+
+# Host directory shared into the VM as /var/mnt/games. Everything that must
+# survive a rebuild lives here: the Steam install and library, Moonshine's
+# pairing, Decky, Flatpak apps, EmuDeck. An existing Steam install at
+# $GAMES/Steam is used as is.
+#GAMES=$HOME/Games
+
+# Where the rootfs, kernel and the VM's SSH key are written.
+#OUT=$HOME/.local/share/$NAME
+
+# Container image to flatten, and the rootfs size (a sparse file).
+#IMAGE=localhost/steam-microvm-nvidia:latest
+#SIZE=20G
+
+# Extra SSH public keys for the steam user, one per line. The VM's own key,
+# $OUT/id_ed25519, is always installed.
+#KEYS=
+
+# Guest resources. Guest RAM is committed on the host while the VM runs.
+#VCPUS=8
+#MEM_MIB=12288
+
+# LAN bridging. NIC is the wired interface to bridge (default: the one with
+# the default route). The bridge and tap are NetworkManager connections of
+# these names, created if missing. MAC is the guest's, fixed so its DHCP
+# lease is stable.
+#NIC=
+#BRIDGE=br0
+#TAP=steamvm0
+#MAC=02:57:56:00:00:01
+
+# Optional: a symlink on the host at the path the guest mounts the share
+# (/var/mnt/games), so absolute paths Steam and EmuDeck record there
+# (library folders, ROM shortcuts) also resolve on the host. Off by default.
+#HOST_LINK=/var/mnt/games

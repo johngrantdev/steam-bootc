@@ -1,0 +1,1039 @@
+{
+  "schema_version": 1,
+  "default_image": "steam-microvm-nvidia",
+  "default_image_name": "steam-microvm-nvidia",
+  "pr_image": "steam-microvm-nvidia",
+  "default_target": "steam-microvm-nvidia",
+  "default_published": "steam-microvm-nvidia",
+  "pr_target": "steam-microvm-nvidia",
+  "pr_published": "steam-microvm-nvidia",
+  "ungated_target": "steam-microvm-nvidia",
+  "ungated_published": "steam-microvm-nvidia",
+  "cache_image": "steam-microvm-nvidia-cache",
+  "workflows": [],
+  "audit": {
+    "enforce": false
+  },
+  "remotes": [],
+  "assets": [
+    {
+      "module": "proton-cachyos",
+      "name": "proton",
+      "manifest": "modules/proton-cachyos/module.kdl",
+      "pin": {
+        "locator": "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-{version}/proton-cachyos-{version}-x86_64.tar.xz",
+        "selector": "11.0-20261015-slr",
+        "verifier": "35e16eab636724e3ed7aa8e2dbc33eb8e102e0c63bbc28b5a39af544c75d5bd3",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-11.0-20261015-slr/proton-cachyos-11.0-20261015-slr-x86_64.tar.xz"
+      }
+    },
+    {
+      "module": "hardware/nvidia",
+      "name": "repo-key",
+      "manifest": "modules/hardware/nvidia/module.kdl",
+      "pin": {
+        "locator": "https://developer.download.nvidia.com/compute/cuda/repos/fedora44/x86_64/{version}.pub",
+        "selector": "73CD9B30",
+        "verifier": "9221458f62030a18d5a28eecf44496016ff9c11548492ac2ce428f75c7513cab",
+        "tracker": "manual",
+        "reason": "nvidia rotates the repository key rarely",
+        "from": "asset",
+        "path": null,
+        "resolved": "https://developer.download.nvidia.com/compute/cuda/repos/fedora44/x86_64/73CD9B30.pub"
+      }
+    },
+    {
+      "module": "moonshine",
+      "name": "moonshine",
+      "manifest": "modules/moonshine/module.kdl",
+      "pin": {
+        "locator": "https://github.com/hgaiser/moonshine/releases/download/v{version}/moonshine-{version}-1.x86_64.rpm",
+        "selector": "0.16.1",
+        "verifier": "9540ae5b88828bb3b8c442eb4794644aceb66fa4b623afc65ea0f29146fae267",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/hgaiser/moonshine/releases/download/v0.16.1/moonshine-0.16.1-1.x86_64.rpm"
+      }
+    },
+    {
+      "module": "decky-loader",
+      "name": "decky",
+      "manifest": "modules/decky-loader/module.kdl",
+      "pin": {
+        "locator": "https://github.com/SteamDeckHomebrew/decky-loader/releases/download/v{version}/PluginLoader",
+        "selector": "3.2.10",
+        "verifier": "c2cf316a53e1c1d318c6dda8821c827e5db275922987f9097956d7a1576e8258",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/SteamDeckHomebrew/decky-loader/releases/download/v3.2.10/PluginLoader"
+      }
+    },
+    {
+      "module": "moonshine-decky",
+      "name": "moonshine-decky",
+      "manifest": "modules/moonshine-decky/module.kdl",
+      "pin": {
+        "locator": "https://github.com/johngrantdev/moonshine-decky/releases/download/v{version}/moonshine-decky-v{version}.zip",
+        "selector": "0.1.0",
+        "verifier": "7078b18685cc7df0aa1be5ec10afb136a85036b37fd8cfdac0bae07d26a0cef0",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/johngrantdev/moonshine-decky/releases/download/v0.1.0/moonshine-decky-v0.1.0.zip"
+      }
+    },
+    {
+      "module": "xone-relay",
+      "name": "relay",
+      "manifest": "modules/xone-relay/module.kdl",
+      "pin": {
+        "locator": "https://github.com/johngrantdev/xone-relay/releases/download/v{version}/xone-relay",
+        "selector": "0.1.0",
+        "verifier": "254fe85c4700fbac115beecb9bd66da2d0c20f1c9900af54d86fd223d738b6ea",
+        "tracker": "renovate",
+        "reason": null,
+        "from": "asset",
+        "path": null,
+        "resolved": "https://github.com/johngrantdev/xone-relay/releases/download/v0.1.0/xone-relay"
+      }
+    }
+  ],
+  "images": [
+    {
+      "id": "steam-microvm-nvidia",
+      "name": "steam-microvm-nvidia",
+      "pretty_name": "",
+      "file": "./steam-bootc.image.kdl",
+      "url": "",
+      "issues_url": "",
+      "description": "",
+      "keywords": [],
+      "logo_url": "",
+      "conforms": "",
+      "boot": "",
+      "allows": [],
+      "layout": {
+        "filesystem": "",
+        "bootloader": "grub2"
+      },
+      "base": {
+        "image": "quay.io/fedora/fedora-bootc:44",
+        "family": "fedora",
+        "signed": false,
+        "provides": [
+          "rechunking",
+          "initramfs-generation",
+          "luks-initramfs",
+          "selinux-policy",
+          "ssh",
+          "bootc",
+          "bootupctl",
+          "podman",
+          "crun"
+        ],
+        "witnesses": {
+          "bootc": [
+            "/usr/bin/bootc",
+            "/usr/sbin/bootc"
+          ],
+          "bootupctl": [
+            "/usr/bin/bootupctl",
+            "/usr/sbin/bootupctl"
+          ],
+          "build-environment": [
+            "/usr/bin/build-environment",
+            "/usr/sbin/build-environment"
+          ],
+          "crun": [
+            "/usr/bin/crun",
+            "/usr/sbin/crun"
+          ],
+          "decky-loader": [
+            "/usr/bin/decky-loader",
+            "/usr/sbin/decky-loader"
+          ],
+          "game-session": [
+            "/usr/bin/game-session",
+            "/usr/sbin/game-session"
+          ],
+          "initramfs-generation": [
+            "/usr/bin/initramfs-generation",
+            "/usr/sbin/initramfs-generation"
+          ],
+          "kernel-devel": [
+            "/usr/bin/kernel-devel",
+            "/usr/sbin/kernel-devel"
+          ],
+          "luks-initramfs": [
+            "/usr/bin/luks-initramfs",
+            "/usr/sbin/luks-initramfs"
+          ],
+          "moonshine": [
+            "/usr/bin/moonshine",
+            "/usr/sbin/moonshine"
+          ],
+          "nvidia-driver": [
+            "/usr/bin/nvidia-driver",
+            "/usr/sbin/nvidia-driver"
+          ],
+          "podman": [
+            "/usr/bin/podman",
+            "/usr/sbin/podman"
+          ],
+          "rechunking": [
+            "/usr/bin/rechunking",
+            "/usr/sbin/rechunking"
+          ],
+          "selinux-policy": [
+            "/usr/bin/selinux-policy",
+            "/usr/sbin/selinux-policy"
+          ],
+          "ssh": [
+            "/usr/bin/ssh",
+            "/usr/sbin/ssh"
+          ],
+          "steam": [
+            "/usr/bin/steam",
+            "/usr/sbin/steam"
+          ],
+          "user": [
+            "/usr/bin/user",
+            "/usr/sbin/user"
+          ]
+        },
+        "requires": [],
+        "satisfies": []
+      },
+      "flavours": [],
+      "default_flavour": null,
+      "targets": [
+        {
+          "name": "steam-microvm-nvidia",
+          "image": "steam-microvm-nvidia",
+          "flavour": null,
+          "published": "steam-microvm-nvidia",
+          "conforms": "",
+          "allows": [],
+          "default": true,
+          "pr": true,
+          "siblings": [],
+          "modules": [
+            {
+              "path": "fedora/build-environment",
+              "dir": "fedora/build-environment",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "dnf as the build environment every Fedora-family layer installs through, and the root filesystem work that closes it",
+              "options": {},
+              "provides": [
+                "build-environment"
+              ],
+              "requires": [],
+              "files": {},
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "41476bd29fc85473dc300ae097d62e51c458dedb3f7c1c82cd54464fcd0aa630",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "base",
+              "dir": "base",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "The system around the session: NetworkManager (DHCP on its default profile), key-only SSH with no root login, and a few admin tools.",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "build-environment",
+                "ssh"
+              ],
+              "files": {},
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "openssh-server",
+                    "NetworkManager",
+                    "curl",
+                    "tar",
+                    "xz",
+                    "less",
+                    "nano",
+                    "strace",
+                    "iproute",
+                    "bind-utils"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "11b97835a7a486a41a05870292a4dcbb17fccf009393465d4ee155eb3489ba52",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "user",
+              "dir": "user",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "The steam account the session runs as: locked password, passwordless sudo, and a lingering user manager so the session starts at boot without a login.",
+              "options": {},
+              "provides": [
+                "user"
+              ],
+              "requires": [
+                "build-environment"
+              ],
+              "files": {
+                "user": "/etc/sudoers.d/steam"
+              },
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "sudo"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "527003faecfa250d8aed4c69eb4fca4e7970148e9b07bb46fe2581588e074be6",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "proton-cachyos",
+              "dir": "proton-cachyos",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Proton-CachyOS (the SLR/Steam Linux Runtime build, not the CachyOS-base build) installed system-wide under /usr/share/steam/compatibilitytools.d, where Steam looks for compatibility tools. Steam lists it as proton-cachyos in a game's Compatibility settings.",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "build-environment"
+              ],
+              "files": {},
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "curl",
+                    "tar",
+                    "xz"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "cbb7bfecbbf31b062a50e9c1355999bc1f49210f52ca1995d7599d3940826562",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "waydroid",
+              "dir": "waydroid",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Waydroid Android games and apps as a Steam shortcut. The launcher runs Waydroid in a nested Cage session, fixes controller uevents, and keeps Android images and app data on the games share.",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "build-environment",
+                "user"
+              ],
+              "files": {},
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "waydroid",
+                    "cage",
+                    "wlr-randr",
+                    "zenity"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "729baef8956a0ceaae1a03b9220e4ad3b460841e40e1012976c8f8ebba23de9f",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "boot/kernel-devel",
+              "dir": "boot/kernel-devel",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Helpers that install the image kernel's headers for an out-of-tree module build",
+              "options": {},
+              "provides": [
+                "kernel-devel"
+              ],
+              "requires": [],
+              "files": {
+                "kernel-devel": "/usr/libexec/kernel-devel-helpers.sh"
+              },
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "4fce6a3928cefbf12afed804aedf8e22295853b9572f86310a899588d6afb569",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": {
+                  "library": "tectonic-modules",
+                  "path": "boot/kernel-devel",
+                  "content": "4fce6a3928cefbf12afed804aedf8e22295853b9572f86310a899588d6afb569",
+                  "pin": {
+                    "locator": null,
+                    "selector": null,
+                    "verifier": null,
+                    "tracker": "none",
+                    "reason": null,
+                    "from": "asset",
+                    "path": null,
+                    "resolved": null
+                  },
+                  "tracked": true
+                }
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "hardware/nvidia",
+              "dir": "hardware/nvidia",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "nvidia driver, with the open kernel modules built for the image kernel",
+              "options": {
+                "OPT_VERSION": "615.71.09",
+                "OPT_KERNEL_MODULES": "0"
+              },
+              "provides": [
+                "nvidia-kmod",
+                "nvidia-driver",
+                "nvidia-repo"
+              ],
+              "requires": [
+                "build-environment",
+                "kernel-devel"
+              ],
+              "files": {
+                "nvidia-kmod": "/usr/lib/systemd/system/nvidia-nodes.service",
+                "nvidia-driver": "/usr/bin/nvidia-smi",
+                "nvidia-repo": "/etc/pki/rpm-gpg/RPM-GPG-KEY-nvidia-cuda"
+              },
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "8f6c661d715be531cdb7247127c7a71df9a33fe2990a9833a624940d593fd03c",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": {
+                  "library": "tectonic-modules",
+                  "path": "hardware/nvidia",
+                  "content": "8f6c661d715be531cdb7247127c7a71df9a33fe2990a9833a624940d593fd03c",
+                  "pin": {
+                    "locator": null,
+                    "selector": null,
+                    "verifier": null,
+                    "tracker": "none",
+                    "reason": null,
+                    "from": "asset",
+                    "path": null,
+                    "resolved": null
+                  },
+                  "tracked": true
+                }
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "steam",
+              "dir": "steam",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Steam and GameMode from RPMFusion. The Steam root itself is on the games share (the session module links it there and starts Steam as Moonshine's Steam app).",
+              "options": {},
+              "provides": [
+                "steam"
+              ],
+              "requires": [
+                "build-environment",
+                "user",
+                "nvidia-driver"
+              ],
+              "files": {
+                "steam": "/usr/bin/steam"
+              },
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "steam",
+                    "gamemode",
+                    "steam-devices",
+                    "vulkan-loader",
+                    "vulkan-tools",
+                    "xdg-user-dirs",
+                    "dbus",
+                    "dbus-broker",
+                    "zenity",
+                    "xterm"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "4d9d5764acaaf1c98c55fc7be079a35bae82c8abfbd0ae5f349dbaa096177e3d",
+                "repo": true,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "moonshine",
+              "dir": "moonshine",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Moonshine game streaming for the steam account. Each Moonlight session runs one app in its own headless compositor, encoded with Vulkan Video (HDR10 for HDR games); the apps are the .desktop files other modules put in /usr/share/steam-session/apps. Its certificate and paired clients are on the games share.",
+              "options": {},
+              "provides": [
+                "moonshine"
+              ],
+              "requires": [
+                "build-environment",
+                "user",
+                "nvidia-driver"
+              ],
+              "files": {
+                "moonshine": "/usr/bin/moonshine"
+              },
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "d26c3253c28449ca85cda5d2839dfd8e1230672ed80d8ac592f0250cd02904a1",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "session",
+              "dir": "session",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Steam's game mode as a Moonshine app: the launcher that starts Steam in SteamOS mode, its app entry, the SteamOS helper stubs Steam calls, and the fonts, locale and tools Steam and games expect. Steam's root is on the games share, so the rootfs carries no state.",
+              "options": {},
+              "provides": [
+                "game-session"
+              ],
+              "requires": [
+                "build-environment",
+                "user",
+                "steam",
+                "moonshine"
+              ],
+              "files": {
+                "game-session": "/usr/libexec/steam-session/steam-gamemode"
+              },
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "pciutils",
+                    "glibc-langpack-en",
+                    "zram-generator-defaults",
+                    "mangohud",
+                    "liberation-fonts",
+                    "google-noto-sans-cjk-vf-fonts"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "b76268c2b5375821fcfd107c05fda534fab7a58893a02d602336b244ecacc468",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "decky-loader",
+              "dir": "decky-loader",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Decky Loader, the Steam game-mode plugin loader: the pinned PluginLoader binary and its root system service. Its home, ~/homebrew, is on the games share, so plugins, their settings and Decky's own updates survive rebuilds.",
+              "options": {},
+              "provides": [
+                "decky-loader"
+              ],
+              "requires": [
+                "build-environment",
+                "user",
+                "steam"
+              ],
+              "files": {
+                "decky-loader": "/usr/lib/decky-loader/PluginLoader"
+              },
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "flatpak"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "0812154e2b477818edfe90a1d2a3fcc9239cf7a1867428bcca65ead511458759",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "moonshine-decky",
+              "dir": "moonshine-decky",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Moonshine Decky: the Moonshine Config Decky Loader plugin, which edits Moonshine's server name, HDR and Steam mode from the Steam Game Mode Quick Access menu. The image ships the plugin's release ZIP; decky-start seeds it into ~/homebrew/plugins on the games share.",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "build-environment",
+                "decky-loader",
+                "moonshine"
+              ],
+              "files": {},
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "unzip"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "c0ed55cc523911e1ff9ca7242644633c6e32c61ff87df775ef59ec3fa71daeac",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "emudeck",
+              "dir": "emudeck",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "EmuDeck as a Moonshine app of its own, in place of a desktop mode: Moonlight's EmuDeck entry runs it while Steam is not running (Steam ROM Manager needs Steam stopped). EmuDeck's packages are here; the app, its emulators and the Emulation tree (ROMs, BIOS, saves) live on the games share.",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "user",
+                "moonshine"
+              ],
+              "files": {},
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "fuse",
+                    "fuse-libs",
+                    "git-core",
+                    "rsync",
+                    "lsb_release",
+                    "jq",
+                    "zenity",
+                    "unzip"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "fbcf0069f019a6d20e7030afb2be9c8e93e8dd1eef72b556315bf16d4107344b",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "vm/nvidia-guest",
+              "dir": "vm/nvidia-guest",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "NVIDIA in a virtio-nvgpu guest: the virtio_gpu_nv kernel driver, built against the image kernel, which presents the host GPU as /dev/nvidia*. NVIDIA's userspace (GL, EGL, Vulkan, NVENC) comes from hardware/nvidia without its kernel modules, at the host driver's release.",
+              "options": {},
+              "provides": [
+                "nvidia-kmod"
+              ],
+              "requires": [
+                "build-environment",
+                "kernel-devel",
+                "nvidia-driver"
+              ],
+              "files": {
+                "nvidia-kmod": "/usr/lib/virtio-nvgpu/installed"
+              },
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "28734c4de3038b0e95ddca7ea3800aa2ef36e592704f573a737918b41dfc6244",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "xone-relay",
+              "dir": "xone-relay",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Xbox Wireless controller relay receiver: accepts a connection from the standalone xone-relay sender, recreates every source controller as a uinput device for Steam, and relays FF_RUMBLE requests back to the Xbox Wireless Adapter on Proxmox. Supports multiple controllers and rumble. The Xbox Wireless Adapter and xone driver stay on the Proxmox host. The receiver is a pinned static musl release with no Python or evdev runtime dependency.",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "build-environment"
+              ],
+              "files": {},
+              "packages": [
+                {
+                  "family": "fedora",
+                  "names": [
+                    "kmod"
+                  ],
+                  "enablerepo": null
+                }
+              ],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "82532ce57862770b43868df7c01ba767c8aad7e4bacd2c421a1e270a45bee2b3",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "vm/nesbox-guest",
+              "dir": "vm/nesbox-guest",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "What booting under nesbox needs: the host's games share mounted over virtiofs at /var/mnt/games, and no bootloader service (nesbox boots a vmlinux directly).",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "build-environment"
+              ],
+              "files": {},
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "efcda24fb6998826df99920569e33450293b44fe259cdd1d031087c1100ad0d8",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            },
+            {
+              "path": "vm/session",
+              "dir": "vm/session",
+              "flavour": null,
+              "variant": null,
+              "remote": null,
+              "description": "Session changes the virtio-nvgpu backend needs: Steam's CEF on software rendering, as its GPU process takes shared-window memory games need.",
+              "options": {},
+              "provides": [],
+              "requires": [
+                "steam",
+                "game-session"
+              ],
+              "files": {},
+              "packages": [],
+              "groups": [],
+              "coprs": [],
+              "provenance": {
+                "content": "3ca7cf0e8da9fa6112a2a07b421d9b8a3fd11e1883aff9e72ee80e82a24465d9",
+                "repo": false,
+                "source": null,
+                "pin": null,
+                "imported": null
+              },
+              "satisfies": [],
+              "refuses": []
+            }
+          ],
+          "suppressed": [],
+          "secrets": [
+            "mok_privkey"
+          ],
+          "contract_files": [
+            "/etc/sudoers.d/steam",
+            "/usr/lib/systemd/system/nvidia-nodes.service",
+            "/usr/bin/nvidia-smi",
+            "/etc/pki/rpm-gpg/RPM-GPG-KEY-nvidia-cuda",
+            "/usr/bin/steam",
+            "/usr/bin/moonshine",
+            "/usr/libexec/steam-session/steam-gamemode",
+            "/usr/lib/decky-loader/PluginLoader",
+            "/usr/lib/virtio-nvgpu/installed"
+          ],
+          "verify_exceptions": [],
+          "assets": [
+            {
+              "module": "proton-cachyos",
+              "name": "proton",
+              "manifest": "modules/proton-cachyos/module.kdl",
+              "pin": {
+                "locator": "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-{version}/proton-cachyos-{version}-x86_64.tar.xz",
+                "selector": "11.0-20261015-slr",
+                "verifier": "35e16eab636724e3ed7aa8e2dbc33eb8e102e0c63bbc28b5a39af544c75d5bd3",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-11.0-20261015-slr/proton-cachyos-11.0-20261015-slr-x86_64.tar.xz"
+              }
+            },
+            {
+              "module": "hardware/nvidia",
+              "name": "repo-key",
+              "manifest": "modules/hardware/nvidia/module.kdl",
+              "pin": {
+                "locator": "https://developer.download.nvidia.com/compute/cuda/repos/fedora44/x86_64/{version}.pub",
+                "selector": "73CD9B30",
+                "verifier": "9221458f62030a18d5a28eecf44496016ff9c11548492ac2ce428f75c7513cab",
+                "tracker": "manual",
+                "reason": "nvidia rotates the repository key rarely",
+                "from": "asset",
+                "path": null,
+                "resolved": "https://developer.download.nvidia.com/compute/cuda/repos/fedora44/x86_64/73CD9B30.pub"
+              }
+            },
+            {
+              "module": "moonshine",
+              "name": "moonshine",
+              "manifest": "modules/moonshine/module.kdl",
+              "pin": {
+                "locator": "https://github.com/hgaiser/moonshine/releases/download/v{version}/moonshine-{version}-1.x86_64.rpm",
+                "selector": "0.16.1",
+                "verifier": "9540ae5b88828bb3b8c442eb4794644aceb66fa4b623afc65ea0f29146fae267",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/hgaiser/moonshine/releases/download/v0.16.1/moonshine-0.16.1-1.x86_64.rpm"
+              }
+            },
+            {
+              "module": "decky-loader",
+              "name": "decky",
+              "manifest": "modules/decky-loader/module.kdl",
+              "pin": {
+                "locator": "https://github.com/SteamDeckHomebrew/decky-loader/releases/download/v{version}/PluginLoader",
+                "selector": "3.2.10",
+                "verifier": "c2cf316a53e1c1d318c6dda8821c827e5db275922987f9097956d7a1576e8258",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/SteamDeckHomebrew/decky-loader/releases/download/v3.2.10/PluginLoader"
+              }
+            },
+            {
+              "module": "moonshine-decky",
+              "name": "moonshine-decky",
+              "manifest": "modules/moonshine-decky/module.kdl",
+              "pin": {
+                "locator": "https://github.com/johngrantdev/moonshine-decky/releases/download/v{version}/moonshine-decky-v{version}.zip",
+                "selector": "0.1.0",
+                "verifier": "7078b18685cc7df0aa1be5ec10afb136a85036b37fd8cfdac0bae07d26a0cef0",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/johngrantdev/moonshine-decky/releases/download/v0.1.0/moonshine-decky-v0.1.0.zip"
+              }
+            },
+            {
+              "module": "xone-relay",
+              "name": "relay",
+              "manifest": "modules/xone-relay/module.kdl",
+              "pin": {
+                "locator": "https://github.com/johngrantdev/xone-relay/releases/download/v{version}/xone-relay",
+                "selector": "0.1.0",
+                "verifier": "254fe85c4700fbac115beecb9bd66da2d0c20f1c9900af54d86fd223d738b6ea",
+                "tracker": "renovate",
+                "reason": null,
+                "from": "asset",
+                "path": null,
+                "resolved": "https://github.com/johngrantdev/xone-relay/releases/download/v0.1.0/xone-relay"
+              }
+            }
+          ],
+          "overlay_files": {
+            "/etc/default/waydroid-launcher": "waydroid",
+            "/etc/fstab": "vm/nesbox-guest",
+            "/etc/locale.conf": "session",
+            "/etc/modprobe.d/steam-nouveau.conf": "vm/nvidia-guest",
+            "/etc/modules-load.d/virtio_gpu_nv.conf": "vm/nvidia-guest",
+            "/etc/modules-load.d/virtiofs.conf": "vm/nesbox-guest",
+            "/etc/modules-load.d/xone-relay.conf": "xone-relay",
+            "/etc/ssh/sshd_config.d/99-steam.conf": "base",
+            "/etc/steam-session/xone-relay.conf": "xone-relay",
+            "/etc/udev/rules.d/99-virtio-nvgpu.rules": "vm/nvidia-guest",
+            "/usr/bin/jupiter-biosupdate": "session",
+            "/usr/bin/jupiter-initial-firmware-update": "session",
+            "/usr/bin/nvidia-modprobe": "vm/nvidia-guest",
+            "/usr/bin/steamos-mandatory-update": "session",
+            "/usr/bin/steamos-polkit-helpers/jupiter-biosupdate": "session",
+            "/usr/bin/steamos-polkit-helpers/jupiter-dock-updater": "session",
+            "/usr/bin/steamos-polkit-helpers/steamos-select-branch": "session",
+            "/usr/bin/steamos-polkit-helpers/steamos-update": "session",
+            "/usr/bin/steamos-select-branch": "session",
+            "/usr/bin/steamos-session-select": "session",
+            "/usr/bin/steamos-update": "session",
+            "/usr/bin/waydroid-launcher": "waydroid",
+            "/usr/lib/bootc/kargs.d/90-nvidia.toml": "hardware/nvidia",
+            "/usr/lib/environment.d/60-steam-vm.conf": "vm/session",
+            "/usr/lib/systemd/system-preset/45-module-base.preset": "base",
+            "/usr/lib/systemd/system-preset/45-module-decky-loader.preset": "decky-loader",
+            "/usr/lib/systemd/system-preset/45-module-nesbox-guest.preset": "vm/nesbox-guest",
+            "/usr/lib/systemd/system-preset/45-module-xone-relay.preset": "xone-relay",
+            "/usr/lib/systemd/system-preset/50-moonshine.preset": "moonshine",
+            "/usr/lib/systemd/system/moonshine@.service.d/10-steam-session.conf": "moonshine",
+            "/usr/lib/systemd/system/nvidia-nodes.service": "hardware/nvidia",
+            "/usr/lib/systemd/system/plugin_loader.service": "decky-loader",
+            "/usr/lib/systemd/system/waydroid-container.service.d/10-waydroid-data.conf": "waydroid",
+            "/usr/lib/systemd/system/xone-relay-receiver.service": "xone-relay",
+            "/usr/lib/tmpfiles.d/steam-user.conf": "user",
+            "/usr/lib/udev/rules.d/61-nvidia-nodes.rules": "hardware/nvidia",
+            "/usr/libexec/kernel-devel-helpers.sh": "boot/kernel-devel",
+            "/usr/libexec/nvidia-nodes": "hardware/nvidia",
+            "/usr/libexec/steam-session/decky-start": "decky-loader",
+            "/usr/libexec/steam-session/emudeck-desktop": "emudeck",
+            "/usr/libexec/steam-session/steam-gamemode": "session",
+            "/usr/libexec/steam-session/waydroid-container-start": "waydroid",
+            "/usr/libexec/steam-session/waydroid-fix-controllers": "waydroid",
+            "/usr/libexec/steam-session/xone-relay-receiver": "xone-relay",
+            "/usr/share/applications/Waydroid.desktop": "waydroid",
+            "/usr/share/licenses/gamescope-session-steam/LICENSE": "session",
+            "/usr/share/steam-session/apps/emudeck.desktop": "emudeck",
+            "/usr/share/steam-session/apps/steam.desktop": "session",
+            "/usr/share/steam-session/moonshine/config.toml": "moonshine"
+          },
+          "overlay_overridden": [],
+          "collected_files": {},
+          "collect_destinations": []
+        }
+      ]
+    }
+  ]
+}

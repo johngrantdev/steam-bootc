@@ -1,0 +1,13 @@
+diff --git a/virtio-devices/src/nvgpu.rs b/virtio-devices/src/nvgpu.rs
+index 9a043cd..755e3ea 100644
+--- a/virtio-devices/src/nvgpu.rs
++++ b/virtio-devices/src/nvgpu.rs
+@@ -107,7 +107,7 @@ const NV_SHM_ID: u8 = 1;
+ ///
+ /// Nothing is committed for it here. The reservation is PROT_NONE and the
+ /// pages arrive only as the backend asks for them, one mapping at a time.
+-const SHM_SIZE: u64 = 1 << 30; // 1 GiB
++const SHM_SIZE: u64 = 4 << 30; // 4 GiB: must equal the backend zones total
+ 
+ /// BAR 4 is the UVM aperture: one memory slot per CUDA semaphore pool.
+ ///

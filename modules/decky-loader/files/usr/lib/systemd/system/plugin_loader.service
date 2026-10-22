@@ -1,0 +1,25 @@
+# Decky Loader's own release unit, with its home on the games share.
+[Unit]
+Description=Decky Loader (Steam game-mode plugin loader)
+After=network.target
+RequiresMountsFor=/var/mnt/games
+
+[Service]
+Type=simple
+User=root
+
+ExecStart=/usr/libexec/steam-session/decky-start
+WorkingDirectory=/var/home/steam/homebrew/services
+Environment=UNPRIVILEGED_PATH=/var/home/steam/homebrew
+Environment=PRIVILEGED_PATH=/var/home/steam/homebrew
+Environment=LOG_LEVEL=INFO
+# Without it Decky takes the user whose home contains its home's real path;
+# ~/homebrew resolves into the share, which only / contains, and it picked
+# rtkit. Plugins then ran, and the store installed, as the wrong user.
+Environment=UNPRIVILEGED_USER=steam
+Restart=always
+KillMode=process
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

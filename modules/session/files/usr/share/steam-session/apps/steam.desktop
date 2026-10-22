@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Steam
+Comment=Steam in game mode
+Exec=/usr/libexec/steam-session/steam-gamemode
+Icon=steam

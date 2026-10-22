@@ -1,0 +1,8 @@
+schema-version 1
+
+description "Session changes the virtio-nvgpu backend needs: Steam's CEF on software rendering, as its GPU process takes shared-window memory games need."
+
+supports "fedora"
+
+requires "steam"
+requires "game-session"

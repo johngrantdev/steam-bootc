@@ -1,0 +1,4 @@
+#!/bin/bash
+# Steam in SteamOS mode runs this at startup. A VM has no firmware to update
+# and no OS image to force-update: report nothing to do.
+exit 0

@@ -1,0 +1,23 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**/README.md"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  image:
+    name: Build steam-microvm-nvidia
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check manifests and generated files
+        run: ./generated/scripts/tect.sh check
+      - name: Build the image
+        run: ./generated/scripts/tect.sh build --backend buildx --no-tui

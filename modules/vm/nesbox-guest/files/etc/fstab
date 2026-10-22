@@ -1,0 +1,1 @@
+games /var/mnt/games virtiofs defaults,nofail,x-systemd.automount 0 0

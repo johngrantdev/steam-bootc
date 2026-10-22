@@ -1,0 +1,25 @@
+schema-version 1
+
+description "The virtio-nvgpu host backend (vhost-user-nvgpu) and its nvgpu@ template unit: the host keeps the NVIDIA GPU and nesbox microVMs share it. Carries a 4 GiB shared-window patch that nesbox must match."
+
+supports "fedora"
+
+network "scripts"
+
+requires "build-environment"
+
+// The backend opens /dev/nvidia*: the host's NVIDIA kernel driver is the
+// trust boundary it shares.
+requires "nvidia-kmod"
+
+provides "virtio-nvgpu-backend" file="/usr/lib/systemd/system/nvgpu@.service"
+
+// Upstream ships source only; the tag's archive is built here.
+asset "virtio-nvgpu" {
+    pin {
+        renovate datasource="github-tags" depName="nestrilabs/virtio-nvgpu"
+        version "v0.2.1"
+        url "https://github.com/nestrilabs/virtio-nvgpu/archive/refs/tags/{version}.tar.gz"
+        sha256 "983e79e8e681f06f7f05e8f0fccdc8db877db84d78670ac261f559366881bd3a"
+    }
+}

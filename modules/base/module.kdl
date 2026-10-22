@@ -1,0 +1,11 @@
+schema-version 1
+
+description "The system around the session: NetworkManager (DHCP on its default profile), key-only SSH with no root login, and a few admin tools."
+
+supports "fedora"
+
+requires "build-environment"
+requires "ssh"
+
+packages "openssh-server" "NetworkManager" "curl" "tar" "xz" \
+    "less" "nano" "strace" "iproute" "bind-utils"

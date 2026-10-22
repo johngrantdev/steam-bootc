@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+# From ChimeraOS gamescope-session-steam (MIT, /usr/share/licenses/gamescope-session-steam).
+
+# Hook for custom OS script
+GAMESCOPE_SESSION_SCRIPT="/usr/lib/os-session-select"
+if [ -f $GAMESCOPE_SESSION_SCRIPT ] ; then
+	# Call session script from the OS
+	${GAMESCOPE_SESSION_SCRIPT} $@
+else
+	# Simply call shutdown on the client
+	steam -shutdown
+fi
+

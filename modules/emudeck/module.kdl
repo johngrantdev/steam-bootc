@@ -1,0 +1,15 @@
+schema-version 1
+
+description "EmuDeck as a Moonshine app of its own, in place of a desktop mode: Moonlight's EmuDeck entry runs it while Steam is not running (Steam ROM Manager needs Steam stopped). EmuDeck's packages are here; the app, its emulators and the Emulation tree (ROMs, BIOS, saves) live on the games share."
+
+supports "fedora"
+
+requires "user"
+requires "moonshine"
+
+// What EmuDeck's installer would dnf-install (its script also runs
+// dnf upgrade, which this image must not). fuse/fuse-libs: EmuDeck and its
+// emulators are AppImages. git: EmuDeck clones its backend scripts.
+packages "fuse" "fuse-libs" "git-core" "rsync" "lsb_release" "jq" "zenity" "unzip"
+
+mode "/usr/libexec/steam-session/emudeck-desktop" "0755"

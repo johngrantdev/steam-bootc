@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+# EmuDeck updates itself in ~/Applications, so it is fetched once onto the
+# share (as EmuDeck's installer does) rather than pinned in the image.
+set -euo pipefail
+# The share's directories the home links into; a fresh share has none.
+mkdir -p /var/mnt/games/Applications /var/mnt/games/Emulation \
+    /var/mnt/games/.emudeck /var/mnt/games/.steam-rom-manager
+app=$HOME/Applications/EmuDeck.AppImage
+if [ ! -x "$app" ]; then
+    url=$(curl -fsSL https://api.github.com/repos/EmuDeck/emudeck-electron/releases/latest \
+        | jq -r '.assets[].browser_download_url | select(endswith(".AppImage") and (contains("arm64") | not))' \
+        | head -n1)
+    curl -fL "$url" -o "$app.part" 2>&1 \
+        | zenity --progress --pulsate --auto-close --no-cancel --title EmuDeck --text "Downloading EmuDeck"
+    chmod +x "$app.part"
+    mv "$app.part" "$app"
+fi
+# Native Wayland in Moonshine's compositor. Unlike Steam's CEF it keeps the
+# GPU: Steam is not running meanwhile, and with --disable-gpu its window
+# never maps.
+exec "$app" --ozone-platform=wayland

@@ -1,0 +1,60 @@
+diff --git a/device/src/nvidia/mod.rs b/device/src/nvidia/mod.rs
+index 1f6995d..cb8140f 100644
+--- a/device/src/nvidia/mod.rs
++++ b/device/src/nvidia/mod.rs
+@@ -417,7 +417,7 @@ impl NvidiaBackend {
+ 
+     /// Create a backend with the default 256 MiB zone split.
+     pub fn with_default_zones() -> Self {
+-        Self::new(ZoneConfig::default_1gib())
++        Self::new(ZoneConfig::default_4gib())
+     }
+ 
+     /// Total SHM BAR size (for VMM config space).
+diff --git a/device/src/shm.rs b/device/src/shm.rs
+index 083bd5c..d637706 100644
+--- a/device/src/shm.rs
++++ b/device/src/shm.rs
+@@ -176,6 +176,17 @@ impl ZoneConfig {
+         }
+     }
+ 
++    /// A 4 GiB window: the 1 GiB split's write-combine zone is filled by one
++    /// game behind a nested compositor stack (Detroit: Become Human under
++    /// sway + gamescope + Steam). Address space only, like the 1 GiB split.
++    pub fn default_4gib() -> Self {
++        Self {
++            uc_size: 32 * 1024 * 1024,
++            wc_size: 3584 * 1024 * 1024,
++            wb_size: 480 * 1024 * 1024,
++        }
++    }
++
+     /// The original 256 MiB split. Too small for a single encode with any
+     /// margin; kept only for tests that want a zone they can exhaust.
+     pub fn default_256mib() -> Self {
+@@ -258,9 +269,13 @@ impl ShmAllocator {
+             std::io::Error::last_os_error()
+         );
+ 
++        // Small zones first. A cookie is a window offset, and a 32-bit guest
++        // process maps it through mmap() with a signed 32-bit offset, so every
++        // zone it can land in must start below 2 GiB; write-combine, the big
++        // one, goes last.
+         let uc_base = 0;
+-        let wc_base = cfg.uc_size;
+-        let wb_base = cfg.uc_size + cfg.wc_size;
++        let wb_base = cfg.uc_size;
++        let wc_base = cfg.uc_size + cfg.wb_size;
+ 
+         Self {
+             uc: Zone::new(uc_base, cfg.uc_size),
+@@ -275,7 +290,7 @@ impl ShmAllocator {
+     }
+ 
+     pub fn with_default_zones() -> Self {
+-        Self::new(ZoneConfig::default_1gib())
++        Self::new(ZoneConfig::default_4gib())
+     }
+ 
+     /// Override the base pointer used for MAP_FIXED operations.

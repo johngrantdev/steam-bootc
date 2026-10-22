@@ -1,0 +1,221 @@
+{
+  "image": "steam-microvm-nvidia",
+  "capabilities": [
+    {
+      "name": "bootc",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "bootupctl",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "build-environment",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "fedora/build-environment",
+      "required_by": [
+        "base",
+        "user",
+        "proton-cachyos",
+        "waydroid",
+        "hardware/nvidia",
+        "steam",
+        "moonshine",
+        "session",
+        "decky-loader",
+        "moonshine-decky",
+        "vm/nvidia-guest",
+        "xone-relay",
+        "vm/nesbox-guest"
+      ],
+      "after": []
+    },
+    {
+      "name": "crun",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "decky-loader",
+      "kind": "file",
+      "build_only": false,
+      "provider": "decky-loader",
+      "required_by": [
+        "moonshine-decky"
+      ],
+      "after": []
+    },
+    {
+      "name": "game-session",
+      "kind": "file",
+      "build_only": false,
+      "provider": "session",
+      "required_by": [
+        "vm/session"
+      ],
+      "after": []
+    },
+    {
+      "name": "initramfs-generation",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "kernel",
+      "kind": "capability",
+      "build_only": false,
+      "provider": null,
+      "required_by": [],
+      "after": [
+        "boot/kernel-devel"
+      ]
+    },
+    {
+      "name": "kernel-devel",
+      "kind": "file",
+      "build_only": true,
+      "provider": "boot/kernel-devel",
+      "required_by": [
+        "hardware/nvidia",
+        "vm/nvidia-guest"
+      ],
+      "after": []
+    },
+    {
+      "name": "luks-initramfs",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "moonshine",
+      "kind": "file",
+      "build_only": false,
+      "provider": "moonshine",
+      "required_by": [
+        "session",
+        "moonshine-decky",
+        "emudeck"
+      ],
+      "after": []
+    },
+    {
+      "name": "nvidia-driver",
+      "kind": "file",
+      "build_only": false,
+      "provider": "hardware/nvidia",
+      "required_by": [
+        "steam",
+        "moonshine",
+        "vm/nvidia-guest"
+      ],
+      "after": []
+    },
+    {
+      "name": "nvidia-kmod",
+      "kind": "file",
+      "build_only": false,
+      "provider": "hardware/nvidia",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "nvidia-repo",
+      "kind": "file",
+      "build_only": false,
+      "provider": "hardware/nvidia",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "podman",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "rechunking",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "secureboot-key",
+      "kind": "capability",
+      "build_only": false,
+      "provider": null,
+      "required_by": [],
+      "after": [
+        "hardware/nvidia"
+      ]
+    },
+    {
+      "name": "selinux-policy",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [],
+      "after": []
+    },
+    {
+      "name": "ssh",
+      "kind": "capability",
+      "build_only": false,
+      "provider": "base",
+      "required_by": [
+        "base"
+      ],
+      "after": []
+    },
+    {
+      "name": "steam",
+      "kind": "file",
+      "build_only": false,
+      "provider": "steam",
+      "required_by": [
+        "session",
+        "decky-loader",
+        "vm/session"
+      ],
+      "after": []
+    },
+    {
+      "name": "user",
+      "kind": "file",
+      "build_only": false,
+      "provider": "user",
+      "required_by": [
+        "waydroid",
+        "steam",
+        "moonshine",
+        "session",
+        "decky-loader",
+        "emudeck"
+      ],
+      "after": []
+    }
+  ],
+  "overrides": [],
+  "suppressed": []
+}

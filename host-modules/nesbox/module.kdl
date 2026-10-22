@@ -1,0 +1,23 @@
+schema-version 1
+
+description "nesbox, the microVM VMM for virtio-nvgpu, built without virgl, and its nesbox@ template unit that boots /etc/nesbox/NAME.json. Carries the 4 GiB shared-window patch matching host-modules/virtio-nvgpu."
+
+supports "fedora"
+
+network "scripts"
+
+requires "build-environment"
+
+requires "virtio-nvgpu-backend"
+
+provides "nesbox" file="/usr/libexec/nvgpu/nesbox"
+
+// Upstream ships source only; the release's tag archive is built here.
+asset "nesbox" {
+    pin {
+        renovate datasource="github-releases" depName="nestrilabs/nesbox"
+        version "v0.3.1"
+        url "https://github.com/nestrilabs/nesbox/archive/refs/tags/{version}.tar.gz"
+        sha256 "5f6697aed434210feb4ce02c50204046ab4c62a141338ac8396409a9c4e3eac4"
+    }
+}

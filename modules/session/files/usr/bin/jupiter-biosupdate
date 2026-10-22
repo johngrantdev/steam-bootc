@@ -1,0 +1,4 @@
+#! /bin/bash
+# From ChimeraOS gamescope-session-steam (MIT, /usr/share/licenses/gamescope-session-steam).
+
+exit 0;

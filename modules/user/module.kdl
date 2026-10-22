@@ -1,0 +1,11 @@
+schema-version 1
+
+description "The steam account the session runs as: locked password, passwordless sudo, and a lingering user manager so the session starts at boot without a login."
+
+supports "fedora"
+
+requires "build-environment"
+
+provides "user" file="/etc/sudoers.d/steam"
+
+packages "sudo"

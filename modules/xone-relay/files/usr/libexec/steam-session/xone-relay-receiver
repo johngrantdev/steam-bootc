@@ -1,0 +1,4 @@
+#!/bin/sh
+# Entry point for the system unit. The relay is a static musl binary. This
+# wrapper stays a shell script for the repository's lint pass.
+exec /usr/lib/xone-relay/xone-relay --receiver "$@"

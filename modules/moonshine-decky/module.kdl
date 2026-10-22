@@ -1,0 +1,21 @@
+schema-version 1
+
+description "Moonshine Decky: the Moonshine Config Decky Loader plugin, which edits Moonshine's server name, HDR and Steam mode from the Steam Game Mode Quick Access menu. The image ships the plugin's release ZIP; decky-start seeds it into ~/homebrew/plugins on the games share."
+
+supports "fedora"
+
+requires "build-environment"
+requires "decky-loader"
+requires "moonshine"
+
+// fetch_extract unpacks the ZIP.
+packages "unzip"
+
+asset "moonshine-decky" {
+    pin {
+        renovate datasource="github-releases" depName="johngrantdev/moonshine-decky" extractVersion="^v(?<version>.+)$"
+        version "0.1.0"
+        url "https://github.com/johngrantdev/moonshine-decky/releases/download/v{version}/moonshine-decky-v{version}.zip"
+        sha256 "7078b18685cc7df0aa1be5ec10afb136a85036b37fd8cfdac0bae07d26a0cef0"
+    }
+}

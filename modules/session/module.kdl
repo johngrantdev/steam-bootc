@@ -1,0 +1,31 @@
+schema-version 1
+
+description "Steam's game mode as a Moonshine app: the launcher that starts Steam in SteamOS mode, its app entry, the SteamOS helper stubs Steam calls, and the fonts, locale and tools Steam and games expect. Steam's root is on the games share, so the rootfs carries no state."
+
+supports "fedora"
+
+requires "build-environment"
+requires "user"
+requires "steam"
+requires "moonshine"
+
+provides "game-session" file="/usr/libexec/steam-session/steam-gamemode"
+
+// pciutils: Steam detects the GPU with lspci. glibc-langpack-en: Steam and
+// Source games call setlocale(en_US.UTF-8). zram: compressed swap for peaks
+// past guest RAM. Fonts: the fallbacks Steam's UI and games expect. Audio
+// needs no sound server here: Moonshine is the PulseAudio server its apps see.
+packages "pciutils" "glibc-langpack-en" "zram-generator-defaults" "mangohud" \
+    "liberation-fonts" "google-noto-sans-cjk-vf-fonts"
+
+mode "/usr/libexec/steam-session/steam-gamemode" "0755"
+mode "/usr/bin/steamos-update" "0755"
+mode "/usr/bin/steamos-session-select" "0755"
+mode "/usr/bin/steamos-select-branch" "0755"
+mode "/usr/bin/jupiter-biosupdate" "0755"
+mode "/usr/bin/jupiter-initial-firmware-update" "0755"
+mode "/usr/bin/steamos-mandatory-update" "0755"
+mode "/usr/bin/steamos-polkit-helpers/steamos-update" "0755"
+mode "/usr/bin/steamos-polkit-helpers/steamos-select-branch" "0755"
+mode "/usr/bin/steamos-polkit-helpers/jupiter-biosupdate" "0755"
+mode "/usr/bin/steamos-polkit-helpers/jupiter-dock-updater" "0755"

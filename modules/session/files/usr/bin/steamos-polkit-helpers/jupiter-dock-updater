@@ -1,0 +1,4 @@
+#!/bin/bash
+# No dock in a VM. 7 is "no update available" to Steam (as for
+# steamos-update); 0 reads as an update to offer.
+exit 7

@@ -1,0 +1,13 @@
+module "boot/kernel-devel" {
+    library "tectonic-modules"
+    path "boot/kernel-devel"
+    content "4fce6a3928cefbf12afed804aedf8e22295853b9572f86310a899588d6afb569"
+    track
+}
+
+module "hardware/nvidia" {
+    library "tectonic-modules"
+    path "hardware/nvidia"
+    content "8f6c661d715be531cdb7247127c7a71df9a33fe2990a9833a624940d593fd03c"
+    track
+}

@@ -1,0 +1,4 @@
+# Moonshine for the steam account. Not a 45-module-*.preset: tectonic's
+# build-time preset pass reads "verb unit" and takes "moonshine@.service
+# steam" for one unit name, so finalize.sh enables the instance instead.
+enable moonshine@.service steam

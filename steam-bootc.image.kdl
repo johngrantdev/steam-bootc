@@ -1,0 +1,41 @@
+schema-version 1
+
+image {
+    name "steam-microvm-nvidia"
+
+    base "quay.io/fedora/fedora-bootc:44" {
+        family "fedora"
+        provides "rechunking" "initramfs-generation" "luks-initramfs" "selinux-policy" "ssh" "bootc" "bootupctl" "podman" "crun"
+        signed #false
+    }
+
+    layout {
+        bootloader "grub2"
+    }
+
+    modules {
+        module "fedora/build-environment"
+        module "base"
+        module "user"
+        module "steam"
+        module "proton-cachyos"
+        module "moonshine"
+        module "session"
+        module "decky-loader"
+        module "moonshine-decky"
+        module "emudeck"
+        module "waydroid"
+        module "boot/kernel-devel"
+        module "hardware/nvidia" {
+            // The guest's NVIDIA userspace must be the host driver's
+            // release. virtio_gpu_nv serves the GPU, so the image carries
+            // no nvidia kernel module.
+            version "615.71.09"
+            kernel-modules #false
+        }
+        module "vm/nvidia-guest"
+        module "xone-relay"
+        module "vm/nesbox-guest"
+        module "vm/session"
+    }
+}

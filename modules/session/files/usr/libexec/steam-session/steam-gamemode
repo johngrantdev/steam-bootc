@@ -1,0 +1,15 @@
+#!/bin/sh
+# Steam in game mode, as Moonshine's Steam app starts it. SteamOS's own
+# client flags make Steam behave as on a Deck, including Valve's per-title
+# compatibility tool choices; the steamos-* stubs in /usr/bin answer what it
+# then asks of the OS. STEAM_EXTRA_ARGS takes per-platform flags from the
+# user manager's environment.d (vm/session sets CEF's).
+# Proton-CachyOS is installed system-wide; Steam scans this path, and naming
+# it explicitly keeps the tool visible if Steam's defaults change.
+export STEAM_EXTRA_COMPAT_TOOLS_PATHS=/usr/share/steam/compatibilitytools.d
+# ~/.steam is on the games share. Create it, then drop the pid and pipe a
+# previous boot left behind.
+mkdir -p /var/mnt/games/.steam
+rm -f /var/mnt/games/.steam/steam.pid /var/mnt/games/.steam/steam.pipe
+# shellcheck disable=SC2086
+exec /usr/bin/steam -steamos3 -steampal -steamdeck -gamepadui $STEAM_EXTRA_ARGS

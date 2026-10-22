@@ -1,0 +1,7 @@
+schema-version 1
+
+description "What booting under nesbox needs: the host's games share mounted over virtiofs at /var/mnt/games, and no bootloader service (nesbox boots a vmlinux directly)."
+
+supports "fedora"
+
+requires "build-environment"

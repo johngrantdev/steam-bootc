@@ -1,0 +1,47 @@
+[Unit]
+Description=virtio-nvgpu backend for %i
+Documentation=https://github.com/nestrilabs/virtio-nvgpu
+After=systemd-user-sessions.service
+# A backend started before /dev/nvidia* exist has nothing to open. A host
+# whose NVIDIA module creates the nodes at boot in a unit of this name gets
+# the ordering; elsewhere the Wants is a no-op.
+Wants=nvidia-nodes.service
+After=nvidia-nodes.service
+
+[Service]
+Type=simple
+User=nvgpu
+Group=nvgpu
+SupplementaryGroups=render
+# The video-memory cap is the backend's: each guest is admitted at most
+# this much GPU memory. Override per host in /etc/nvgpu/backend.env.
+EnvironmentFile=-/usr/lib/nvgpu/backend.env
+EnvironmentFile=-/etc/nvgpu/backend.env
+ExecStart=/usr/libexec/nvgpu/vhost-user-nvgpu \
+	--socket /run/nvgpu/%i.sock \
+	--caps graphics,compute,video,utility \
+	--vram-limit-mib ${NVGPU_VRAM_LIMIT_MIB}
+# The socket is created by the backend, not by this unit. Wait for it so
+# a VMM ordered after this service cannot race the bind; the backend
+# leaves it 0700, and the VMM (nesbox@%i.service) runs as root.
+ExecStartPost=/bin/sh -c 's=/run/nvgpu/%i.sock; i=0; while [ ! -S "$s" ] && [ "$i" -lt 100 ]; do sleep 0.1; i=$((i+1)); done; test -S "$s"'
+# The VMM owns this unit's lifetime. No auto-restart: a backend that died
+# mid-VM must not come back serving a VM it no longer knows.
+Restart=no
+NoNewPrivileges=true
+# One host descriptor per guest open of /dev/nvidia*. Steam alone holds
+# hundreds and a game's vkCreateDevice fails at the default soft limit of
+# 1024 (EMFILE, seen as VK_ERROR_INITIALIZATION_FAILED in the guest).
+LimitNOFILE=524288
+
+# /dev/nvidia* and the render node; systemd's auto device policy allows
+# only what is listed here plus its own defaults.
+DeviceAllow=/dev/nvidiactl rw
+DeviceAllow=/dev/nvidia0 rw
+DeviceAllow=/dev/nvidia-uvm rw
+DeviceAllow=/dev/nvidia-uvm-tools rw
+DeviceAllow=/dev/nvidia-modeset rw
+DeviceAllow=char-drm rw
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,23 @@
+schema-version 1
+
+description "Xbox Wireless controller relay receiver: accepts a connection from the standalone xone-relay sender, recreates every source controller as a uinput device for Steam, and relays FF_RUMBLE requests back to the Xbox Wireless Adapter on Proxmox. Supports multiple controllers and rumble. The Xbox Wireless Adapter and xone driver stay on the Proxmox host. The receiver is a pinned static musl release with no Python or evdev runtime dependency."
+
+supports "fedora"
+
+network "scripts"
+
+requires "build-environment"
+
+packages "kmod"
+
+// The receiver binary comes from the standalone xone-relay release.
+asset "relay" {
+    pin {
+        renovate datasource="github-releases" depName="johngrantdev/xone-relay"
+        version "0.1.0"
+        url "https://github.com/johngrantdev/xone-relay/releases/download/v{version}/xone-relay"
+        sha256 "254fe85c4700fbac115beecb9bd66da2d0c20f1c9900af54d86fd223d738b6ea"
+    }
+}
+
+mode "/usr/libexec/steam-session/xone-relay-receiver" "0755"

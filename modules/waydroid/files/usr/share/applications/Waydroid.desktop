@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Waydroid
+Comment=Android games and apps in Steam Game Mode
+Exec=/usr/bin/waydroid-launcher
+Icon=waydroid
+Categories=Game;

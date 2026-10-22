@@ -1,0 +1,23 @@
+schema-version 1
+
+description "Moonshine game streaming for the steam account. Each Moonlight session runs one app in its own headless compositor, encoded with Vulkan Video (HDR10 for HDR games); the apps are the .desktop files other modules put in /usr/share/steam-session/apps. Its certificate and paired clients are on the games share."
+
+supports "fedora"
+
+requires "build-environment"
+
+network "scripts"
+
+requires "user"
+requires "nvidia-driver"
+
+provides "moonshine" file="/usr/bin/moonshine"
+
+asset "moonshine" {
+    pin {
+        renovate datasource="github-releases" depName="hgaiser/moonshine" extractVersion="^v(?<version>.+)$"
+        version "0.16.1"
+        url "https://github.com/hgaiser/moonshine/releases/download/v{version}/moonshine-{version}-1.x86_64.rpm"
+        sha256 "9540ae5b88828bb3b8c442eb4794644aceb66fa4b623afc65ea0f29146fae267"
+    }
+}

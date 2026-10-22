@@ -1,0 +1,42 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+source /etc/default/waydroid-launcher
+
+if [ ! -f /var/lib/waydroid/images/system.img ]; then
+    zenity --info --title=Waydroid \
+        --text='Waydroid will download Android system images. This can take several minutes.' &
+    dialog=$!
+    trap 'kill "$dialog" 2>/dev/null || true' EXIT
+    sudo mkdir -p /var/mnt/games/.waydroid
+    sudo waydroid init -s GAPPS
+    kill "$dialog" 2> /dev/null || true
+    trap - EXIT
+fi
+
+if systemctl is-active --quiet waydroid-container.service; then
+    sudo systemctl stop waydroid-container.service
+fi
+
+sudo /usr/libexec/steam-session/waydroid-container-start
+
+launch_waydroid() {
+    wlr-randr --output X11-1 --custom-mode "$1"
+    sleep 1
+    shift
+    exec waydroid "$@" 2> /dev/null
+}
+export -f launch_waydroid
+
+cage -- bash -uxc 'launch_waydroid "$@"' _ \
+    "${WAYDROID_WIDTH}x${WAYDROID_HEIGHT}" show-full-ui &
+cage_pid=$!
+
+while ! pgrep -x surfaceflinger > /dev/null; do
+    sleep 1
+done
+sleep 10
+sudo /usr/libexec/steam-session/waydroid-fix-controllers
+
+wait "$cage_pid"
+sudo systemctl stop waydroid-container.service

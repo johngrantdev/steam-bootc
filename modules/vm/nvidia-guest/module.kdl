@@ -1,0 +1,14 @@
+schema-version 1
+
+description "NVIDIA in a virtio-nvgpu guest: the virtio_gpu_nv kernel driver, built against the image kernel, which presents the host GPU as /dev/nvidia*. NVIDIA's userspace (GL, EGL, Vulkan, NVENC) comes from hardware/nvidia without its kernel modules, at the host driver's release."
+
+supports "fedora"
+
+requires "build-environment"
+requires "kernel-devel"
+requires "nvidia-driver"
+
+provides "nvidia-kmod" file="/usr/lib/virtio-nvgpu/installed"
+
+// The stub replaces the nvidia-modprobe that NVIDIA's packages install.
+mode "/usr/bin/nvidia-modprobe" "0755"

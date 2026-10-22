@@ -1,0 +1,14 @@
+schema-version 1
+
+description "Waydroid Android games and apps as a Steam shortcut. The launcher runs Waydroid in a nested Cage session, fixes controller uevents, and keeps Android images and app data on the games share."
+
+supports "fedora"
+
+requires "build-environment"
+requires "user"
+
+packages "waydroid" "cage" "wlr-randr" "zenity"
+
+mode "/usr/bin/waydroid-launcher" "0755"
+mode "/usr/libexec/steam-session/waydroid-container-start" "0755"
+mode "/usr/libexec/steam-session/waydroid-fix-controllers" "0755"

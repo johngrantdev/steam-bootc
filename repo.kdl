@@ -1,0 +1,20 @@
+schema-version 1
+name "steam-bootc"
+
+// renovate: datasource=github-releases depName=tectonic-os/tectonic
+tect-version "0.6.54" sha256="2c29c6743c87fa1c994b9dda4986f0a5aaee9b7d8deb0d8b9077626235222024"
+
+sources {
+    base-images "core" {
+        url "https://github.com/tectonic-os/library"
+        path "base-images/core"
+        version "e8f1db3bc8418863a546a71908400a87bf43ea6a"
+        sha256 "215e92a006515aabafb11e0aa72038651c9febd6569dea4bf4d36c85cd8a65bc"
+    }
+    capabilities "core" {
+        url "https://github.com/tectonic-os/library"
+        path "capabilities"
+        version "e8f1db3bc8418863a546a71908400a87bf43ea6a"
+        sha256 "215e92a006515aabafb11e0aa72038651c9febd6569dea4bf4d36c85cd8a65bc"
+    }
+}
